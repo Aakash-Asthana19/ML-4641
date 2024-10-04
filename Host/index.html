@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS 4641: Project Proposal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CS 4641: Project Proposal</h1>
+        <h2>Group 44</h2>
+
+        <section>
+            <h3>Introduction and Background</h3>
+            <p>The project aims to develop a machine learning (ML) model that is capable of automatically categorizing and sorting photos based on individual faces.</p>
+            <h4>Literature Review</h4>
+            <p>Face Mesh accurately identifies facial features by mapping key points and enhancing recognition. Sobel’s Gray-Scale method aids edge detection, focusing on significant facial areas while reducing noise. Background removal isolates the face, ensuring the model concentrates on relevant features. Breaking down face scans into images allows effective data categorization for training datasets. Support Vector Machines (SVMs) classify extracted features, while Graph Neural Networks (GNNs) improve accuracy by measuring distances between facial features. Studying existing software like InsightFace can provide valuable insights for model development. Convolutional Neural Networks (CNN) paint a box around the target face, narrowing down the search space of our model to analyze.</p>
+        </section>
+
+        <section>
+            <h3>Data Collection and Dataset Description</h3>
+            <p>To avoid infringing privacy and simplify data collection efforts, this project will only use images of the team members. The images will be collected by extracting individual frames at a fixed time interval from recorded videos of each team member’s face using a Python script. These images will be separated and stored within our dataset (Google Drive linked below), which will contain two sub-folders — ‘training_data’ and ‘test_data’. This project will employ Supervised Learning; under each of these folders, we will have folders with each team member’s names that will help with labeling the data.</p>
+            <p>As the project progresses, and given time, we plan to expand the dataset and enhance the model’s recognition capabilities to accommodate multiple individuals in each image.</p>
+            <h4>Dataset Link</h4>
+            <p><a href="https://drive.google.com/drive/folders/1mbv-Qf2SaQAVglhvrNN7fcOf6N6mnxUr?usp=sharing">Google Drive Link</a></p>
+        </section>
+
+        <section>
+            <h3>Problem Definition & Motivation</h3>
+            <p>At large public events (i.e., weddings and conferences), photographers often capture numerous photos of guests. However, sorting through these photos manually can be time-consuming for event organizers and attendees who want to locate images where they appear. The task of manually categorizing and organizing photos based on who is in them presents an inefficiency, especially when dealing with hundreds or thousands of images.</p>
+            <p>We aim to solve this issue by developing a machine learning-based solution that automates categorizing and extracting images based on facial recognition. By having users submit a video of their faces, our model will be able to recognize them and extract all the photos they appear in, creating a personalized gallery for each user.</p>
+        </section>
+
+        <section>
+            <h3>Methods</h3>
+            <h4>Data Pre-Processing:</h4>
+            <ul>
+                <li>Face Mesh: Captures a person's facial features and gives an accurate geometric description of the face.</li>
+                <li>Grey Scale: Removes color and noise from the image, making it easier to focus on the target.</li>
+                <li>Background filtering (blur): Removes the noise of the background and focuses on the target alone.</li>
+                <li>Frame Extraction: Takes the video and breaks it down into photos for multiple photos from different angles.</li>
+            </ul>
+            <h4>ML Model:</h4>
+            <ul>
+                <li>CNN: Neural network architecture used for image recognition tasks.</li>
+                <li>GNN: Neural network architecture for graph-structured data that can model spatial dependencies and relationships between facial landmarks.</li>
+                <li>SVM: A classification algorithm that finds a hyperplane to separate data into classes with the maximum margin.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Results and Discussion</h3>
+            <h4>Quantitative Metrics:</h4>
+            <ul>
+                <li>Accuracy: Measured as the ratio of images correctly labeled by our model. 
+                    <br> (True Positives + True Negatives) / Total Data Points
+                </li>
+                <li>Precision: Measured as the ratio of True Positives to the sum of True Positives and False Positives, quantifying the accuracy of the positive classifications. 
+                    <br> (True Positives) / (True Positives + False Positives)
+                </li>
+                <li>Recall: Measured as the ratio of True Positives to the sum of True Positives and False Negatives, quantifying the model’s ability to identify positive instances. 
+                    <br> (True Positives) / (True Positives + False Negatives)
+                </li>
+                <li>F1-Score: The harmonic mean between Recall and Precision, particularly useful for unevenly distributed datasets. 
+                    <br> Ensures that both False Positives and False Negatives are considered.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Project Goals</h3>
+            <p>Our project goals include creating a model that achieves an accuracy and recall of at least 70%. Additionally, we aim to develop an application that is not very intensive on users' systems, allowing it to run on less powerful machines and within a reasonable time (<2.5 seconds). We also prioritize the privacy of individuals in our data and aim to keep our dataset private to ensure an ethical approach.</p>
+        </section>
+
+        <section>
+            <h3>Expected Results</h3>
+            <p>We expect to achieve an accuracy, recall, and precision of at least 70%, ideally aiming for an F1-Score of at least 73%. Additionally, we hope the processing time for each image fed to our model will remain within 2.5 seconds.</p>
+        </section>
+
+        <section>
+            <h3>References</h3>
+            <ol>
+                <li><a href="https://colab.research.google.com/github/googlesamples/mediapipe/blob/main/examples/face_landmarker/python/%5BMediaPipe_Python_Tasks%5D_Face_Landmarker.ipynb">Google Colab, “MediaPipe Python Tasks - Face Landmarker”</a> [Accessed: 04-Oct-2024].</li>
+                <li><a href="https://github.com/lina-haidar/Edge-Detection-Techniques-Sobel-vs.-Canny">L. Haidar, “Edge Detection Techniques: Sobel vs. Canny”</a> [Accessed: 04-Oct-2024].</li>
+                <li><a href="https://towardsdatascience.com/background-removal-with-deep-learning-c4f2104b3157">Gidi Shperber, “Background Removal with Deep Learning”</a> [Accessed: 04-Oct-2024].</li>
+                <li><a href="https://medium.com/the-modern-scientist/advanced-face-recognition-system-a392787cfe6c#:~:text=This%20deep%20learning%20algorithm%20is,for%20face%20detection%20using%20MTCNN">D. Sadek, “Advanced Face Recognition System”</a> [Accessed: 04-Oct-2024].</li>
+                <li><a href="https://github.com/deepinsight/insightface">DeepInsight, “InsightFace: CNN-based Face Recognition”</a> [Accessed: 04-Oct-2024].</li>
+                <li><a href="https://www.datacamp.com/tutorial/comprehensive-introduction-graph-neural-networks-gnns-tutorial">DataCamp, “A Comprehensive Introduction to Graph Neural Networks (GNNs)”</a> [Accessed: 04-Oct-2024].</li>
+            </ol>
+        </section>
+
+        <section>
+            <h3>Contribution Table</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Proposal Contributions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Aakash Asthana</td>
+                        <td>Potential Results & Discussion, Presentation, Video</td>
+                    </tr>
+                    <tr>
+                        <td>Akshara Joshipura</td>
+                        <td>Introduction & Background, Gantt Chart, Contribution Table, Proofreading/Editing, Potential Results & Discussion</td>
+                    </tr>
+                    <tr>
+                        <td>Manush Patel</td>
+                        <td>Machine Learning Models & Preprocessing Approaches, Literature Review, Presentation & Video</td>
+                    </tr>
+                   
