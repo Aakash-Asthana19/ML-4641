@@ -12,5 +12,5 @@ Steps to Run CS4641_Project_Supervised.ipynb (/src/CS4641_Project_Supervised.ipy
 - Run all cells
 - Provide permission to access your Google Drive when permission is requested
 
-/src/index.html/: The Midterm Checkpoint information
+/src/index.html/: The Final Report information
 
