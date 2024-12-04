@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS 4641: Midterm Checkpoint</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+        }
+        h1, h2, h3, h4 {
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+        }
+        ol {
+            margin-left: 20px;
+        }
+        .center{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+        .image{
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>CS 4641: Midterm Checkpoint</h1>
+<h2>Group 44</h2>
+
+<h3>Introduction and Background</h3>
+<p>The project aims to develop a machine learning (ML) model that is capable of automatically categorizing and sorting 
+    group photos based on individual faces. Our primary objective in this case is to have a model that is able to accurately 
+    identify faces and whose face it is amongst our 5 group members.</p>
+
+<h3>Literature Review</h3>
+<p>Face Mesh accurately identifies facial features by mapping key points, and enhancing recognition. Sobel’s Gray-Scale method aids 
+    edge detection, focusing on significant facial areas while reducing noise. Background removal isolates the face, ensuring the model 
+    concentrates on relevant features. Breaking down face scans into images allows effective data categorization for training datasets. 
+    SVM classifies extracted features, while GNN improves accuracy by measuring distances between facial features. InsightFace can provide 
+    insights for model development. Using CNN to identify numbers from images, they got 97% accuracy.</p>
+
+<h3>Data Collection and Dataset Description</h3>
+<p>To avoid infringing privacy and to simplify data collection efforts, this project will use only images of the team members. 
+    The images will be collected by extracting frames from recorded videos of each team member’s face using a Python script. 
+    These images will be organized into test and training data with team members’ names as labels.</p>
+<p>As the project progresses, and given time, we plan to expand the dataset by including more group photos to enhance the model’s 
+    recognition capabilities and accommodate multiple individuals in each image.</p>
+
+<h3>Dataset Link</h3>
+<p><a href="https://drive.google.com/drive/folders/1mbv-Qf2SaQAVglhvrNN7fcOf6N6mnxUr?usp=sharing">Dataset Link</a></p>
+
+
+<h3>Problem Definition & Motivation</h3>
+<p>At large events like weddings and conferences, sorting through numerous photos can be time-consuming. To address this inefficiency, 
+    we aim to develop an ML solution that automates the categorization of images based on facial recognition of various faces in the photo. 
+    Users will submit a video of their face, and our model will then identify photos in which said user appears.</p>
+
+
+<h3>Methods</h3>
+<h4>Data Pre-Processing Method(s):</h4>
+<p>The data preprocessing method used in creating our model includes extracting individual faces from 5 different videos uploaded by the user 
+    (videos with different facial expressions, different lighting, different contexts, etc.) and extracting frames from those videos to use for our dataset. 
+    This process involved first getting users to upload said videos, creating a python script to extract a high number of .jpg frames from the videos, 
+    and saving those image frames into separate files. Further preprocessing efforts include image resizing/ scaling, image alignment, image labeling, 
+    and simple enhancements to concentrate on the user’s face.</p>
+    <figure class="center">
+        <img src="src/Images/preprocessed.png" alt="Preprocessed example figure" class="image">
+        <figcaption>Image 1: Preprocessed JPG frames extracted from training videos of team members’ faces</figcaption>
+     </figure>
+
+<h4>ML Algorithms/Models Implemented:</h4>
+<p> We used MTCNN, FaceNet, and Support Vector Machine (SVM) to provide a robust, efficient, and accurate approach to face recognition. 
+    MTCNN is used for face detection because of its deep learning-based architecture, which allows it to detect faces quickly and accurately, 
+    even in images with varied orientations, scales, or complex scenes. Once a face is detected, FaceNet generates embeddings of compact, 
+    numerical representations of facial features which capture the essential characteristics of a face. These embeddings are more accurate than traditional methods 
+    (like Eigenfaces or Fisherfaces) for distinguishing between individuals, even under varied lighting, poses, and expressions. Finally, an SVM classifier is employed
+     to classify these embeddings, leveraging its ability to define clear margins and complex decision boundaries. SVMs are computationally efficient and 
+     often outperform simpler models for this purpose, providing high accuracy while avoiding overfitting. Additionally, with a smaller training data, 
+     SVM is still effective. Together, these models create a powerful pipeline that excels in detecting, encoding, and classifying faces reliably and efficiently.</p>
+
+<h4>Supervised Learning Approach:</h4>
+<p>We implemented a supervised learning approach for Face Recognition using Face embedding, 
+    and Support Vector Machine (SVM) Classification. </p>
+    <ul>
+        <li>
+            Generating face embeddings involves training a neural network on a labeled dataset, where each face image is tagged 
+            with an identity. This supervised training enables the model to learn distinct features for each person, 
+            mapping them into a vector space. 
+        </li>
+        <li>
+            The SVM classifier relies on the labeled embeddings generated from the face embedding model. It uses these labeled vectors to determine a 
+            boundary that best separates the identities based on the embedding feature, a process that requires labeled data for each individual in the training set. 
+        </li>
+    </ul>
+
+<h3>Results and Discussion</h3>
+<h4>Visualizations</h4>
+<figure class="center">
+    <img src="src/Images/visualization.png" alt="Visualizations steps" class="image">
+    <figcaption>Image 3: Model Accuracy on Photos per Team Member</figcaption>
+ </figure>
+<h4>Quantitative Metrics:</h4>
+<p> We tested the model using four photos of each group member. The model correctly labeled 11 photos out of 16, 
+    resulting in an accuracy of 11/16 ≈ 0.69.</p>
+    <!-- add image 3 -->
+    <figure class="center">
+        <img src="src/Images/accuracy.png" alt="Accuracy graph" class="image">
+        <figcaption>Image 3: Model Accuracy on Photos per Team Member</figcaption>
+     </figure>
+<p>On closer inspection, we found that while the model performs well on photos with a single individual, 
+    it struggles when multiple people are present. The model consistently identifies all faces in the image, 
+    however, it performs the classification on the first face it detects rather than the face that has the closest 
+    match to the individual being searched for. This behavior limits its accuracy in handling images with more than one person.
+</p>
+<!-- add image 4 -->
+<figure class="center">
+    <img src="src/Images/Precision.png" alt="Precision Graph" class="image">
+    <figcaption> Image 4: Model Precision on Photos per Team Member</figcaption>
+ </figure>
+<!-- add image 5 -->
+<figure class="center">
+    <img src="src/Images/Recall.png" alt="Recall Graph" class="image">
+    <figcaption> Image 5: Model Recall on Photos per Team Member</figcaption>
+</figure>
+<!-- add image 6 -->
+<figure class="center">
+    <img src="src/Images/F1score.png" alt="F1 score Graph" class="image">
+    <figcaption> Image 6: Model F1 Score on Photos per Team Member</figcaption>
+</figure>
+
+<p>At present, our model classifies every image regardless of its confidence level, meaning it never produces a “negative” or “unclassified” output. 
+    As a result, there is currently no distinction between Precision, Recall, and F1 Score, as shown above. Introducing a confidence threshold and 
+    refining the model to search exclusively for the specified target individual will allow for unclassified outputs when confidence is low. 
+    This improvement will enable these metrics to better reflect the model’s performance.</p>
+
+<h4>Analysis of 1+ Algorithm/Model:</h4>
+<p>The combined use of MTCNN, FaceNet, and SVM creates a streamlined and effective face recognition process. First, 
+    MTCNN (Multi-Task Cascaded Convolutional Network) is responsible for detecting faces within an image, 
+    outputting bounding box coordinates (x, y, w, h) that specify the facial regions. Once MTCNN identifies a face, 
+    FaceNet generates a facial embedding—a compact, high-dimensional vector of 128 dimensions that encodes the unique features of the face, 
+    making it easier to distinguish between different individuals. Finally, the SVM model uses these embeddings as input features to classify 
+    the faces, assigning them to known identities or verifying if they match a specific person. Together, these models enable accurate and 
+    efficient face detection, feature encoding, and classification.</p>
+
+<h3>Next Steps</h3>
+<ul>
+    <li><strong>Enhance Model Training for Multi-Person Identification:</strong>
+        To enhance the model's accuracy and precision in distinguishing the target individual within group photos, we will refine 
+        its training process by including images with multiple people and improving its matching algorithm. Rather than defaulting to the first detected face, 
+        the updated algorithm will assess all faces in an image, calculate similarity scores, and select the closest match to the target individual. 
+        This approach will ensure the model reliably identifies the correct person, even in complex, multi-person scenarios.
+    </li>
+    <li>
+        <strong>Expand the Testing Dataset to Include Images with Multiple People:</strong>
+        We will add a variety of images containing multiple individuals to our testing dataset. 
+        This expansion will help us rigorously assess the model’s ability to recognize the specific target person within group photos, 
+        ensuring that it accurately identifies the correct individual in real-world scenarios.
+    </li>
+    <li>
+        <strong>Enable Real-Time Detection for Efficient Group OrganizationTo support live photo organization:</strong> 
+        To support live photo organization, we will incorporate real-time detection capabilities. This addition will allow the model to quickly identify 
+        and sort photos based on each individual’s presence, creating a seamless experience for users as they manage group photos.
+    </li>
+</ul>
+
+<h3>References</h3>
+<ol>
+    <li>MediaPipe, “MediaPipe Python Tasks - Face Landmarker,” Available: <a href="https://colab.research.google.com/github/googlesamples/mediapipe/blob/main/examples/face_landmarker/python/%5BMediaPipe_Python_Tasks%5D_Face_Landmarker.ipynb">https://colab.research.google.com/github/googlesamples/mediapipe/blob/main/examples/face_landmarker/python/%5BMediaPipe_Python_Tasks%5D_Face_Landmarker.ipynb</a>. [Accessed: 04-Oct-2024].</li>
+    <li>L. Haidar, “Edge Detection Techniques: Sobel vs. Canny,” GitHub, 2024. Available: <a href="https://github.com/lina-haidar/Edge-Detection-Techniques-Sobel-vs.-Canny">https://github.com/lina-haidar/Edge-Detection-Techniques-Sobel-vs.-Canny</a>. [Accessed: 04-Oct-2024].</li>
+    <li>G. Shperber, “Background Removal with Deep Learning,” Medium, 2024. Available: <a href="https://towardsdatascience.com/background-removal-with-deep-learning-c4f2104b3157">https://towardsdatascience.com/background-removal-with-deep-learning-c4f2104b3157</a>. [Accessed: 04-Oct-2024].</li>
+    <li>D. Sadek, “Advanced Face Recognition System,” Medium, 2024. Available: <a href="https://medium.com/the-modern-scientist/advanced-face-recognition-system-a392787cfe6c">https://medium.com/the-modern-scientist/advanced-face-recognition-system-a392787cfe6c</a>. [Accessed: 04-Oct-2024].</li>
+    <li>DeepInsight, “InsightFace: CNN-based Face Recognition,” GitHub, 2024. Available: <a href="https://github.com/deepinsight/insightface">https://github.com/deepinsight/insightface</a>. [Accessed: 04-Oct-2024].</li>
+    <li>DataCamp, “A Comprehensive Introduction to Graph Neural Networks (GNNs),” DataCamp, 2024. Available: <a href="https://www.datacamp.com/tutorial/comprehensive-introduction-graph-neural-networks-gnns-tutorial">https://www.datacamp.com/tutorial/comprehensive-introduction-graph-neural-networks-gnns-tutorial</a>. [Accessed: 04-Oct-2024].</li>
+    <li>Scikit-learn, “Model Evaluation: Metrics,” Scikit-learn, 2024. Available: <a href="https://scikit-learn.org/stable/modules/model_evaluation.html">https://scikit-learn.org/stable/modules/model_evaluation.html</a>. [Accessed: 04-Oct-2024].</li>
+</ol>
+<h3>Contribution Table</h3>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>Name</th>
+        <th>Proposal Contributions</th>
+    </tr>
+    <tr>
+        <td>Aakash Asthana</td>
+        <td>Introduction/ Background, Problem Definition, Data Preprocessing Methods, References</td>
+    </tr>
+    <tr>
+        <td>Akshara Joshipura</td>
+        <td>Gantt Chart, Contribution Table, Quantitative Metrics, Visualizations, Next Steps, Proofreading/Editing</td>
+    </tr>
+    <tr>
+        <td>Manush Patel</td>
+        <td>Machine Learning Models & Preprocessing Approaches, Literature Review, Presentation & Video</td>
+    </tr>
+    <tr>
+        <td>Sami Moussa</td>
+        <td>Data Preprocessing Methods, Literature Review, GitHub, Supervised Learning/Unsupervised Method Implemented</td>
+    </tr>
+    <tr>
+        <td>Shan Patel</td>
+        <td>Introduction & Background, Problem Definition, Reference Formatting, Presentation, Video, GitHub, Quantitative Metrics</td
+
+</body>
+</html>

@@ -37,36 +37,29 @@
 
 <body>
 
-<h1>CS 4641: Midterm Checkpoint</h1>
+<h1>CS 4641: Final Report</h1>
 <h2>Group 44</h2>
 
 <h3>Introduction and Background</h3>
-<p>The project aims to develop a machine learning (ML) model that is capable of automatically categorizing and sorting 
-    group photos based on individual faces. Our primary objective in this case is to have a model that is able to accurately 
-    identify faces and whose face it is amongst our 5 group members.</p>
+<p>The project aims to develop a machine learning (ML) model that is capable of automatically categorizing and sorting group photos based on individual faces. Our primary objective in this case is to have a model that is able to accurately identify faces and whose face it is amongst our 5 group members.</p>
 
 <h3>Literature Review</h3>
-<p>Face Mesh accurately identifies facial features by mapping key points, and enhancing recognition. Sobel’s Gray-Scale method aids 
-    edge detection, focusing on significant facial areas while reducing noise. Background removal isolates the face, ensuring the model 
-    concentrates on relevant features. Breaking down face scans into images allows effective data categorization for training datasets. 
-    SVM classifies extracted features, while GNN improves accuracy by measuring distances between facial features. InsightFace can provide 
-    insights for model development. Using CNN to identify numbers from images, they got 97% accuracy.</p>
+<p>Face Mesh accurately identifies facial features by mapping key points, and enhancing recognition. Sobel’s Gray-Scale method aids edge detection, focusing on significant facial areas while reducing noise. Background removal isolates the face, ensuring the model concentrates on relevant features. Breaking down face scans into images allows effective data categorization for training datasets. SVM classifies extracted features, while GNN improves accuracy by measuring distances between facial features. InsightFace can provide insights for model development. Using CNN to identify numbers from images, they got 97% accuracy.</p>
 
 <h3>Data Collection and Dataset Description</h3>
-<p>To avoid infringing privacy and to simplify data collection efforts, this project will use only images of the team members. 
-    The images will be collected by extracting frames from recorded videos of each team member’s face using a Python script. 
-    These images will be organized into test and training data with team members’ names as labels.</p>
-<p>As the project progresses, and given time, we plan to expand the dataset by including more group photos to enhance the model’s 
-    recognition capabilities and accommodate multiple individuals in each image.</p>
+<p>To avoid infringing privacy and to simplify data collection efforts, this project will only use images of the team members. The images will be collected by extracting individual frames from recorded videos of each team member’s face using a Python script [4]. These images will be organized into test and training data with team members’ names as labels.
+</p>
+
+<p>As the project progresses, and given time, we plan to expand the dataset by including more group photos to enhance the models’ recognition capabilities and accommodate multiple individuals in each image.
+</p>
 
 <h3>Dataset Link</h3>
 <p><a href="https://drive.google.com/drive/folders/1mbv-Qf2SaQAVglhvrNN7fcOf6N6mnxUr?usp=sharing">Dataset Link</a></p>
 
 
 <h3>Problem Definition & Motivation</h3>
-<p>At large events like weddings and conferences, sorting through numerous photos can be time-consuming. To address this inefficiency, 
-    we aim to develop an ML solution that automates the categorization of images based on facial recognition of various faces in the photo. 
-    Users will submit a video of their face, and our model will then identify photos in which said user appears.</p>
+<p>At large events like weddings and conferences, sorting through numerous photos can be time-consuming. To address this inefficiency, we aim to develop an ML solution that automates the categorization of images based on facial recognition of various faces in the photo. Users will submit a video of their face, and our model will then identify photos in which said user appears.
+</p>
 
 
 <h3>Methods</h3>
@@ -82,71 +75,80 @@
      </figure>
 
 <h4>ML Algorithms/Models Implemented:</h4>
-<p> We used MTCNN, FaceNet, and Support Vector Machine (SVM) to provide a robust, efficient, and accurate approach to face recognition. 
-    MTCNN is used for face detection because of its deep learning-based architecture, which allows it to detect faces quickly and accurately, 
-    even in images with varied orientations, scales, or complex scenes. Once a face is detected, FaceNet generates embeddings of compact, 
-    numerical representations of facial features which capture the essential characteristics of a face. These embeddings are more accurate than traditional methods 
-    (like Eigenfaces or Fisherfaces) for distinguishing between individuals, even under varied lighting, poses, and expressions. Finally, an SVM classifier is employed
-     to classify these embeddings, leveraging its ability to define clear margins and complex decision boundaries. SVMs are computationally efficient and 
-     often outperform simpler models for this purpose, providing high accuracy while avoiding overfitting. Additionally, with a smaller training data, 
-     SVM is still effective. Together, these models create a powerful pipeline that excels in detecting, encoding, and classifying faces reliably and efficiently.</p>
+<p> For image processing, we used MTCNN for facial detection because of its deep learning-based architecture which allows it to detect faces quickly and accurately, even in images with varied orientations, scales, and complex scenes. Once a face is detected, we implement FaceNet to generate embeddings of compact, numerical representations of facial features and capture the essential characteristics of a face. These embeddings are more accurate than traditional methods (like Eigenfaces or Fisherfaces) for distinguishing between individuals, even under varied lighting, poses, and expressions.
+</p>
 
-<h4>Supervised Learning Approach:</h4>
-<p>We implemented a supervised learning approach for Face Recognition using Face embedding, 
-    and Support Vector Machine (SVM) Classification. </p>
+<p>
+    After image processing, for the supervised model, an SVM classifier is employed to classify these embeddings, leveraging its ability to define clear margins and complex decision boundaries. SVMs are computationally efficient and often outperform simpler models for this purpose, providing high accuracy while avoiding overfitting. Additionally, with a smaller training data, SVM is still effective. Together, these models create a powerful pipeline that excels in detecting, encoding, and classifying faces reliably and efficiently.
+</p>
+
+<p>
+    After image processing, unsupervised models such as DBSCAN and K-Means were employed to cluster facial embeddings. DBSCAN was chosen for its ability to discover clusters of arbitrary shape and manage noise effectively, making it well-suited for handling variations in poses, lighting, or occlusions. Unlike many clustering methods, DBSCAN does not require prior knowledge of the number of clusters and can automatically exclude outliers, such as false detections or non-facial regions. In parallel, K-Means clustering was utilized for its simplicity and efficiency in partitioning data into a predefined number of clusters. By assigning facial embeddings to one of five clusters, corresponding to each team member, K-Means provided a structured approach to grouping similar faces. Together, these methods offered complementary strategies for organizing facial data.
+</p>
+
+
+<h4>Supervised Learning or Unsupervised Method Implemented</h4>
+<p>We implemented a supervised learning approach for Face Recognition using face embedding and Support Vector Machine (SVM) Classification. 
+</p>
     <ul>
         <li>
-            Generating face embeddings involves training a neural network on a labeled dataset, where each face image is tagged 
-            with an identity. This supervised training enables the model to learn distinct features for each person, 
-            mapping them into a vector space. 
+            Generating face embeddings involves training a neural network on a labeled dataset, where each face image is tagged with an identity. This supervised training enables the model to learn distinct features for each person, mapping them into a vector space.  
         </li>
         <li>
-            The SVM classifier relies on the labeled embeddings generated from the face embedding model. It uses these labeled vectors to determine a 
-            boundary that best separates the identities based on the embedding feature, a process that requires labeled data for each individual in the training set. 
+            The SVM classifier relies on the labeled embeddings generated from the face embedding model. It uses these labeled vectors to determine a boundary that best separates the identities based on the embedding feature, a process that requires labeled data for each individual in the training set. 
         </li>
     </ul>
+
+    <p>We implemented two unsupervised learning approaches for Facial Clustering (intended to be used before Facial Recognition) using face embedding and Principal Component Analysis (PCA) prior to using DBSCAN and K-Means respectively.
+    </p>
+        <ul>
+            <li>
+                Generating face embeddings involves training a neural network on a labeled dataset, where each face image is tagged with an identity. This supervised training enables the model to learn distinct features for each person, mapping them into a vector space. 
+            </li>
+            <li>
+                PCA reduces the dimensionality of facial embeddings before applying DBSCAN and K-Means. By identifying key features that capture the most variance, PCA simplifies the data and improves clustering efficiency, focusing on the most informative facial characteristics
+            </li>
+            <li>
+                DBSCAN does not use labeled embeddings, instead clustering facial embeddings based on the density of data points. It forms clusters by grouping closely packed points while treating sparse regions as noise, making it well-suited for unsupervised facial grouping tasks.
+            </li>
+            <li>
+                K-Means does not use labeled embeddings, instead relying on a predefined number of centroids to partition the data. It iteratively assigns data points to clusters, minimizing the variance within each cluster based on the proximity to these centroids.
+            </li>
+        </ul>
 
 <h3>Results and Discussion</h3>
 <h4>Visualizations</h4>
 <figure class="center">
-    <img src="src/Images/visualization.png" alt="Visualizations steps" class="image">
-    <figcaption>Image 3: Model Accuracy on Photos per Team Member</figcaption>
+    <img src="src/Images/FinalReport_Img1.png" alt="Visualizations steps" class="image">
  </figure>
+ <figure class="center">
+    <img src="src/Images/finalReport_Img2.png" alt="Visualizations steps" class="image">
+ </figure>
+
 <h4>Quantitative Metrics:</h4>
-<p> We tested the model using four photos of each group member. The model correctly labeled 11 photos out of 16, 
-    resulting in an accuracy of 11/16 ≈ 0.69.</p>
-    <!-- add image 3 -->
-    <figure class="center">
-        <img src="src/Images/accuracy.png" alt="Accuracy graph" class="image">
-        <figcaption>Image 3: Model Accuracy on Photos per Team Member</figcaption>
-     </figure>
-<p>On closer inspection, we found that while the model performs well on photos with a single individual, 
-    it struggles when multiple people are present. The model consistently identifies all faces in the image, 
-    however, it performs the classification on the first face it detects rather than the face that has the closest 
-    match to the individual being searched for. This behavior limits its accuracy in handling images with more than one person.
+<p> We tested our supervised model on multiple photos of each group member, including individual photos as well as group photos. This model correctly labeled 58 faces out of 59 with either a team member’s name or as “unknown” depending on the model’s confidence levels. This resulted in an overall accuracy of around 0.98.
 </p>
-<!-- add image 4 -->
+
 <figure class="center">
-    <img src="src/Images/Precision.png" alt="Precision Graph" class="image">
-    <figcaption> Image 4: Model Precision on Photos per Team Member</figcaption>
+    <img src="src/Images/FinalReportImg3.png" alt="Metrics Charts" class="image">
  </figure>
-<!-- add image 5 -->
-<figure class="center">
-    <img src="src/Images/Recall.png" alt="Recall Graph" class="image">
-    <figcaption> Image 5: Model Recall on Photos per Team Member</figcaption>
-</figure>
-<!-- add image 6 -->
-<figure class="center">
-    <img src="src/Images/F1score.png" alt="F1 score Graph" class="image">
-    <figcaption> Image 6: Model F1 Score on Photos per Team Member</figcaption>
-</figure>
+<!-- add image 4 -->
 
-<p>At present, our model classifies every image regardless of its confidence level, meaning it never produces a “negative” or “unclassified” output. 
-    As a result, there is currently no distinction between Precision, Recall, and F1 Score, as shown above. Introducing a confidence threshold and 
-    refining the model to search exclusively for the specified target individual will allow for unclassified outputs when confidence is low. 
-    This improvement will enable these metrics to better reflect the model’s performance.</p>
+<p>
+    We observe that Shan's accuracy, recall, and F1 scores are lower than those of the other team members, while his precision score remains consistent. This suggests that the model is failing to recognize Shan in many of his images, indicating a potential imbalance in the dataset or inconsistent generalization of his specific features.
+</p>
 
-<h4>Analysis of 1+ Algorithm/Model:</h4>
+<p>
+    Upon further analysis of the photos that failed to be recognized, we observed that the subjects are often under different lighting conditions or have different facial hair compared to the images in the training dataset. While the training data accounted for various angles and facial expressions, it did not include sufficient variation in lighting or facial hair. Expanding the dataset to incorporate these conditions would enhance the model’s ability to generalize and improve its recognition performance across a wider range of real-world scenarios.
+</p>
+
+<p>
+    There are no quantitative metrics for the unsupervised models, as they operate without labeled data, making it impossible to directly evaluate the accuracy of their clustering or “predictions.” However, both DBSCAN and K-Means consistently clustered all team members into a single group due to the high similarity in our facial embeddings. Naturally, this means that they had low accuracy and low precision.
+</p>
+
+<h4>Analysis of 3+ Algorithm/Model:</h4>
+
+<h5><u>Supervised Models: MTCNN and SVM</u></h5>
 <p>The combined use of MTCNN, FaceNet, and SVM creates a streamlined and effective face recognition process. First, 
     MTCNN (Multi-Task Cascaded Convolutional Network) is responsible for detecting faces within an image, 
     outputting bounding box coordinates (x, y, w, h) that specify the facial regions. Once MTCNN identifies a face, 
@@ -155,26 +157,63 @@
     the faces, assigning them to known identities or verifying if they match a specific person. Together, these models enable accurate and 
     efficient face detection, feature encoding, and classification.</p>
 
-<h3>Next Steps</h3>
+<h5><u>Unsupervised Models: DBSCAN and K-Means</u></h5>
+
+<p>In order to keep the image processing consistent between the supervised and unsupervised models, we used MTCNN and FaceNet to detect and embed faces before facial clustering, respectively.</p>
+
+<p>
+    DBSCAN is used to cluster these embeddings, automatically grouping faces from the same individual together based on their density. K-Means is used to cluster these embeddings into predefined groups based on their proximity to centroids. K-Means assigns each facial embedding to one of the clusters, with the goal of minimizing variance within each group. Coupled with the facial detection and embedding by MTCNN and FaceNet, each of these models enables effective face detection, feature encoding, and unsupervised clustering of facial data.
+</p>
+
+<h5> Comparison of 3+ Algorithms/Models </h5>
+<p>
+    In our testing of DBSCAN and K-Means for unsupervised facial clustering, both models faced significant challenges in differentiating between the faces of group members.
+</p>
+
+<p>
+    Initially, DBSCAN clustered all faces under Cluster -1 (noise). To enhance clustering effectiveness, we adjusted the epsilon parameter to achieve optimal feature separation for accurate cluster formation. Additionally, we employed Principal Component Analysis (PCA) to reduce dimensionality. Yet, the model continued to cluster all faces under Cluster 0. In an attempt to enforce multiple clusters, we implemented K-Means with five predefined clusters - one for each team member. But, this model too clustered all team members into a single group. K-Means showed some success in clustering non-group members in a photo with 15 people but struggled with our own team members' faces, which seems to exhibit minimal variability when embedded.
+</p>
+
+<p>
+    Since this behavior did not change even on trying multiple techniques mentioned above to improve performance, we have come to a soft conclusion that there is very little variability within the group members' photos for a simple unsupervised model to effectively differentiate between them. This behavior highlights the limitations of these models in scenarios requiring precise differentiation among visually similar individuals.
+</p>
+
+<p>
+    The reason SVM performed better than clustering may be because it is a supervised learning algorithm that leverages labeled data to explicitly learn the boundaries between classes, whereas clustering relies solely on the inherent structure of the data. Additionally, SVMs are well-suited for small datasets because they focus on the most critical data points, called support vectors, to find the optimal decision boundary, reducing reliance on large amounts of data. They use regularization to balance training accuracy and generalization, minimizing the risk of overfitting.
+</p>
+
 <ul>
-    <li><strong>Enhance Model Training for Multi-Person Identification:</strong>
-        To enhance the model's accuracy and precision in distinguishing the target individual within group photos, we will refine 
-        its training process by including images with multiple people and improving its matching algorithm. Rather than defaulting to the first detected face, 
-        the updated algorithm will assess all faces in an image, calculate similarity scores, and select the closest match to the target individual. 
-        This approach will ensure the model reliably identifies the correct person, even in complex, multi-person scenarios.
-    </li>
+    <li>SVM uses labeled examples to directly learn decision boundaries between group members, making it robust even for subtle differences.</li>
+    
     <li>
-        <strong>Expand the Testing Dataset to Include Images with Multiple People:</strong>
-        We will add a variety of images containing multiple individuals to our testing dataset. 
-        This expansion will help us rigorously assess the model’s ability to recognize the specific target person within group photos, 
-        ensuring that it accurately identifies the correct individual in real-world scenarios.
+        Clustering (e.g., DBSCAN, K-Means) has no labels and relies entirely on unsupervised patterns in the data, which may not be distinct for group members with highly similar embeddings.
     </li>
+
     <li>
-        <strong>Enable Real-Time Detection for Efficient Group OrganizationTo support live photo organization:</strong> 
-        To support live photo organization, we will incorporate real-time detection capabilities. This addition will allow the model to quickly identify 
-        and sort photos based on each individual’s presence, creating a seamless experience for users as they manage group photos.
+        SVM can better handle noisy or overlapping data regions by using kernel methods to project data into higher dimensions if needed.
     </li>
+
+    <li>
+        Clustering is more sensitive to noise and often misclassified points when clear separations are not present, which was present in our implementation where either the lighting or the noise confused the model and misclassified each face.
+    </li>
+
+    <li>
+        Lastly, SVM is designed to identify patterns in highly similar data by emphasizing discriminative feature
+    </li>
+
+    <h4>Next Steps</h4>
+
+    <li>
+        Enable Real-Time Detection for Efficient Group Organization to support live photo organization, we will incorporate real-time detection capabilities. This addition allows the model to quickly identify and sort photos based on each individual’s presence, creating a seamless experience for users as they manage group photos.
+    </li>
+
+    <li>
+        Enhance Facial Recognition Capabilities to handle Facial Hair and Coverings
+        Currently, our model has shown to struggle to recognize individuals if they are wearing opaque glasses, have grown excessive facial hair, are present in abnormal lighting, etc. Enhancing our model’s capabilities to recognize individuals despite these changes would improve the model's robustness and practical applicability in real-world scenarios where such variations are common.         
+    </li>
+
 </ul>
+
 
 <h3>References</h3>
 <ol>
@@ -185,6 +224,7 @@
     <li>DeepInsight, “InsightFace: CNN-based Face Recognition,” GitHub, 2024. Available: <a href="https://github.com/deepinsight/insightface">https://github.com/deepinsight/insightface</a>. [Accessed: 04-Oct-2024].</li>
     <li>DataCamp, “A Comprehensive Introduction to Graph Neural Networks (GNNs),” DataCamp, 2024. Available: <a href="https://www.datacamp.com/tutorial/comprehensive-introduction-graph-neural-networks-gnns-tutorial">https://www.datacamp.com/tutorial/comprehensive-introduction-graph-neural-networks-gnns-tutorial</a>. [Accessed: 04-Oct-2024].</li>
     <li>Scikit-learn, “Model Evaluation: Metrics,” Scikit-learn, 2024. Available: <a href="https://scikit-learn.org/stable/modules/model_evaluation.html">https://scikit-learn.org/stable/modules/model_evaluation.html</a>. [Accessed: 04-Oct-2024].</li>
+    <li>Abdirayimov, Sardor “Face Recognition in Python | Part 1 | FaceNet, MTCNN, SVM”, Available: <a href="https://www.youtube.com/watch?v=bG2tNYs7gw8.">https://www.youtube.com/watch?v=bG2tNYs7gw8.</a> [Accessed: 04-Nov-2024].</li>
 </ol>
 <h3>Contribution Table</h3>
 <table border="1" cellspacing="0" cellpadding="5">
@@ -194,23 +234,23 @@
     </tr>
     <tr>
         <td>Aakash Asthana</td>
-        <td>Introduction/ Background, Problem Definition, Data Preprocessing Methods, References</td>
+        <td>Introduction/Background, Problem Definition, Data Preprocessing Methods, References</td>
     </tr>
     <tr>
         <td>Akshara Joshipura</td>
-        <td>Gantt Chart, Contribution Table, Quantitative Metrics, Visualizations, Next Steps, Proofreading/Editing</td>
+        <td>Gantt Chart, Methods, Analysis of Models, Comparison of Models, Quantitative Metrics, Visualizations, Contribution Table</td>
     </tr>
     <tr>
         <td>Manush Patel</td>
-        <td>Machine Learning Models & Preprocessing Approaches, Literature Review, Presentation & Video</td>
+        <td>Machine Learning Models & Preprocessing Approaches, Supervised Learning Model, Literature Review, Presentation & Video</td>
     </tr>
     <tr>
         <td>Sami Moussa</td>
-        <td>Data Preprocessing Methods, Literature Review, GitHub, Supervised Learning/Unsupervised Method Implemented</td>
+        <td>Data Preprocessing Methods, Literature Review, GitHub, Supervised Learning/Unsupervised Method Implemented, Presentation & Video</td>
     </tr>
     <tr>
         <td>Shan Patel</td>
-        <td>Introduction & Background, Problem Definition, Reference Formatting, Presentation, Video, GitHub, Quantitative Metrics</td
+        <td>Introduction/Background, Problem Definition, Reference Formatting, Presentation, Video, GitHub, Quantitative Metrics</td
 
 </body>
 </html>
