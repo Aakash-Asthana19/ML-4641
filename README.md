@@ -1,6 +1,8 @@
 # ML-4641
 Group 44
 
+We created a facial recognition application where group members faces in photos can be correctly located and identified.
+
 https://github.gatech.edu/pages/smoussa3/ML-4641/
 
 The final project's code is split over two Python notebooks for supervised and unsupervised learning models, respectively. They are: 
